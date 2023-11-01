@@ -14,14 +14,23 @@ org 100h
     rmr db 0ah, 0dh, "Right Motor: Reverse $"
     
     ins db 0ah, 0dh, "Enter the state of switch (1/0): $"
+    
     lm  db 0ah, 0dh, "Left Motor : Stops $"
     rm  db 0ah, 0dh, "Right Motor: Stops $"
+    
+    fo  db 0ah, 0dh, "Bot Runs Forward$"
+     
+    lo  db 0ah, 0dh, "Bot Turns Left$"
+    
+    ro  db 0ah, 0dh, "Bot Turns Right$"
+    
+    so  db 0ah, 0dh, "Bot Stops$"
 
 .code ; code
 
  main proc ; main program start 
   
-  start:   
+  start:  
     
     mov ax, @data      ; moving the variables to ax
     mov ds, ax         ; moving the values from ax to ds
@@ -32,12 +41,15 @@ org 100h
     mov ah, 9          ; moving 9 to ah
     int 21h            ; adding interupt
     
+    xor ax, ax 
+    
     mov ah, 01h        ; getting a char as input from the user
     int 21h            ; adding interupt            
-    
+              
+    xor bx, bx
     mov bl, al         ; moving values from al to bl
     
-    cmp bl, '1'        ; comparing value in bl with '1'
+    cmp bl,'1'       ; comparing value in bl with '1'
     jne flag           ; juming to label 'flag' if not equal;
     
     ; Program to input a 4-bit Binary Value
@@ -110,16 +122,14 @@ compare:
   jg lineAtLeft               ; jumping to lineAtLeft if greater
   jl lineAtRight              ; jumping to lineAtRight if lesser
    
-looping:
-   
+looping: 
+  
   loop start
   
-   ; Program to end the process
-   
-endcode:                      
-
-  ret                         ; using ret to return 
-
+   ; Program to end the process 
+    
+endcode:
+  loop main proc
     
 main endp                     ; ending the main program
 
@@ -135,9 +145,14 @@ flag:                 ; label flag
   mov ah, 9           ; moves value 9 to ah
   int 21h             ; adding interupt
   
-  call endcode        ; calling label endcode
+  lea dx, so
+  mov ah, 9
+  int 21h
   
-  ret                 ; return
+  call looping        ; calling label looping 
+  
+  ret
+  
 
 ; Program to be executed if input has equal number of 1's or 0's
 
@@ -149,9 +164,17 @@ allZero_One:          ; label allZero_One
   
   lea dx, rmf         ; moves the address of variable rmf to dx
   mov ah, 9           ; moves value 9 to ah
-  int 21h             ; adding interupt
+  int 21h             ; adding interupt    
   
-  ret                 ; return
+  lea dx, fo
+  mov ah, 9
+  int 21h
+  
+  call looping        ; calling label looping
+  
+  ret
+
+
 
 ; Program to be executed if the 1st 2 byte has more number of 1's than last 2 byte
           
@@ -165,7 +188,14 @@ lineAtLeft:           ; label lineAtLeft
   mov ah, 9           ; moves value 9 to ah
   int 21h             ; adding interupt
   
-  ret                 ; return
+  lea dx, lo
+  mov ah, 9
+  int 21h
+  
+  call looping        ; calling label looping
+  
+  ret
+
 
 ; Program to be executed if the 1st 2 byte has less number of 1's than last 2 byte        
         
@@ -177,9 +207,14 @@ lineAtRight:          ; label lineAtRight
         
   lea dx, rmr         ; moves the address of variable rmr to dx
   mov ah, 9           ; moves value 9 to ah
-  int 21h             ; adding interupt
+  int 21h             ; adding interupt 
   
-  ret                 ; return
+  lea dx, ro
+  mov ah, 9
+  int 21h
+  
+  call looping        ; calling label looping
+  
+  ret
         
-    
-end                   ; ending the whole program
+end
