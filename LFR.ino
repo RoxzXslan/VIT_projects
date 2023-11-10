@@ -1,5 +1,5 @@
 int ir[8] = {12, 13, A0, A1, A2, A3, A4, A5};
-int mot[4] = {3, 9, 10, 11};
+int mot[4] = {3, 9, 10, 11}; // 0, 1 -> right && 2, 3 -> left motor
 
 int dir[8];
 int base = 255;
