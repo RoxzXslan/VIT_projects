@@ -83,8 +83,7 @@ void pid(float error) {
 }
 
 void setup() {
-  DDRC = B00000000;
-  Serial.begin(9600);
+  DDRC = B00000000; // Port manipulation for pins 12 to 19
 }
 
 void loop() {
