@@ -92,6 +92,6 @@ void loop() {
   
   pid( pos );
 
-  li = (pos < 0) ? 1 : 0;
-  ri = (pos > 0) ? 1 : 0;
+  li = (pos < 0) ;
+  ri = (pos > 0) ;
 }
