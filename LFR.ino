@@ -5,7 +5,6 @@ int dir[8];
 int base = 255;
 int num_Highs;
 int rs, ls;
-bool ri, li;
 
 void readData(int ir[] , int dir[]) {
 
@@ -95,7 +94,4 @@ void loop() {
   float pos = getPOS(ir, dir);
   
   pid( pos );
-
-  li = (pos < 0) ;
-  ri = (pos > 0) ;
 }
