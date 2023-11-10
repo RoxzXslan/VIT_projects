@@ -21,7 +21,7 @@ float getPOS(int ir[], int dir[]){
   float sum = 0;
 
   for( int i=0; i<8; i++) {
-    num_Highs += (dir[i]) ? 1 : 0;
+    num_Highs += dir[i];
     sum += (dir[i]) ? (i-3.5) : 0;
   }
 
@@ -43,7 +43,7 @@ void motorCalls(float pid) {
   ls = ((base + pid) > 255) ? 255 : ((base + pid) < 0) ? 0 : (base + pid);
   rs = ((base - pid) > 255) ? 255 : ((base - pid) < 0) ? 0 : (base - pid);
 
-  if (!num_Highs || (num_Highs > 2)) {
+  if (!num_Highs || (num_Highs > 4)) {
   motorRun(mot[0], mot[1], !(ls > rs), base);
   motorRun(mot[2], mot[3], !(rs > ls), base);
   delay(40);
