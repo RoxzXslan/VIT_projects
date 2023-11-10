@@ -33,9 +33,9 @@ float getPOS(int ir[], int dir[]){
 }
 
 void motorCalls(float pid) {
-  if (!num_Highs) { // Sensor at full white
-    motorRun(mot[0], mot[1], li, base);
-    motorRun(mot[2], mot[3], ri, base);
+  if (!num_Highs) { // Sensor at full white ,. Move backwards
+    motorRun(mot[0], mot[1], 0, base);
+    motorRun(mot[2], mot[3], 0, base);
     delay(40);
     return;
   }
@@ -43,12 +43,12 @@ void motorCalls(float pid) {
   ls = ((base + pid) > 255) ? 255 : ((base + pid) < 0) ? 0 : (base + pid);
   rs = ((base - pid) > 255) ? 255 : ((base - pid) < 0) ? 0 : (base - pid);
 
-  if (!num_Highs || (num_Highs > 4)) { // Hard turns detected / Sensors at full white
+  if (!num_Highs || (num_Highs > 4)) { // Hard turns detected / Sensors at full white,. using value from pid and make turn
   motorRun(mot[0], mot[1], !(ls > rs), base);
   motorRun(mot[2], mot[3], !(rs > ls), base);
   delay(40);
   }
-  else { // PID
+  else { // PID run
     motorRun(mot[0], mot[1], 1, rs);
     motorRun(mot[2], mot[3], 1, ls);
   }
