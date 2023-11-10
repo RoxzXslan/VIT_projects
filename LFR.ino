@@ -56,12 +56,12 @@ void motorCalls(float pid) {
 void motorRun(int m1, int m2, bool dir, int spd) {
 
   if(!dir) {
-    digitalWrite(m1, HIGH);
-    analogWrite(m2, 255-spd);
+    digitalWrite(m1, LOW);
+    analogWrite(m2, spd);
     return;
   }
-  digitalWrite(m2, HIGH);
-  analogWrite(m1, 255-spd);
+  digitalWrite(m2, LOW);
+  analogWrite(m1, spd);
 }
 
 void pid(float error) {
