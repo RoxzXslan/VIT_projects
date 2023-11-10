@@ -43,7 +43,7 @@ void motorCalls(float pid) {
   ls = ((base + pid) > 255) ? 255 : ((base + pid) < 0) ? 0 : (base + pid);
   rs = ((base - pid) > 255) ? 255 : ((base - pid) < 0) ? 0 : (base - pid);
 
-  if (!num_Highs || (num_Highs > 4)) { // Hard turns detected / Sensors at full white,. using value from pid and make turn
+  if (!num_Highs || (num_Highs > 3)) { // Hard turns detected / Sensors at full white,. using value from pid and make turn
   motorRun(mot[0], mot[1], !(ls > rs), base);
   motorRun(mot[2], mot[3], !(rs > ls), base);
   delay(40);
