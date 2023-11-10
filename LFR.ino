@@ -83,7 +83,12 @@ void pid(float error) {
 }
 
 void setup() {
-  DDRC = B00000000; // Port manipulation for pins 12 to 19
+  for(int i=0; i<8; i++) {
+    pinMode(ir[i],INPUT);
+  }
+  for(int i=0; i<4; i++) {
+    pinMode(mot[i],OUTPUT);
+  }
 }
 
 void loop() {
